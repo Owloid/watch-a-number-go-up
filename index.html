@@ -12,7 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
 <script src="config.js"></script>
 <script>
-    (function() {
+    (function(firebase) {
         var ref = firebase.database().ref();
         var display = document.getElementById('number');
         var number;
@@ -45,7 +45,7 @@
         }
 
         document.body.addEventListener('click', incrementNumber, true);
-    })();
+    })(firebase);
 </script>
 
 </html>
