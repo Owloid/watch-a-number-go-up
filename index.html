@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>Watch a Number Go Up</title>
+</head>
+
+<body>
+    <p id="number" style="font-size: 72px;"></p>
+</body>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+<script src="config.js"></script>
+<script>
+    (function() {
+        var ref = firebase.database().ref();
+        var display = document.getElementById('number');
+        var number;
+
+        // Attach an asynchronous callback to read the data at our posts reference
+        ref.on('value', function(snapshot) {
+            number = snapshot.val().number;
+            displayNumber(number);
+
+        }, function(errorObject) {
+            console.log('The read failed: ' + errorObject.code);
+        });
+
+        function displayNumber(value) {
+            display.innerHTML = value;
+        }
+
+        function incrementNumber() {
+            if (typeof number !== 'undefined') {
+                incrementNumber = function() {
+                    number++;
+                    ref.set({
+                        number: number
+                    });
+                }
+                incrementNumber();
+            } else {
+                console.log('The increment failed: number is undefined');
+            }
+        }
+
+        document.body.addEventListener('click', incrementNumber, true);
+    })();
+</script>
+
+</html>
