@@ -31,7 +31,6 @@
         ref.on('value', function(snapshot) {
             number = snapshot.val().number;
             displayNumber(number);
-
         }, function(errorObject) {
             console.log('The read failed: ' + errorObject.code);
         });
